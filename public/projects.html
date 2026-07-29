@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects · Shamseddin Alsheikh</title>
+<meta name="description" content="View Bowcast and Black Hole Census without leaving shamseddin.net.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="assets/interval-mark.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem("theme");if(t&&t!=="system")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<meta property="og:title" content="Projects · Shamseddin Alsheikh">
+<meta property="og:description" content="Live, interactive views of Bowcast and Black Hole Census.">
+<meta property="og:url" content="https://shamseddin.net/projects.html">
+</head>
+<body>
+
+<main class="projects-page">
+
+  <nav aria-label="Primary">
+    <a href="index.html">Home</a>
+    <a href="projects.html" aria-current="page"><span class="nav-dot" aria-hidden="true"></span>Projects</a>
+    <a href="about.html">About</a>
+    <a href="https://github.com/thesunnyshams">GitHub</a>
+  </nav>
+
+  <header class="intro" data-reveal-group>
+    <h1>Projects</h1>
+    <p class="lede">Choose a project, then use it here without giving up the rest of the site.</p>
+    <p>
+      These are the live projects, not screenshots. The frame is deliberately bounded, and each
+      project still has a direct link when it needs the full browser.
+    </p>
+  </header>
+
+  <section aria-labelledby="choose-project">
+    <h2 id="choose-project" data-reveal>Choose a project</h2>
+    <div class="project-picker" data-reveal-group>
+      <a class="project-selector" href="https://bowcast.app" data-project="bowcast" aria-current="true">
+        <span class="project-icon-wrap">
+          <img class="project-icon" src="assets/bowcast-icon.svg" alt="">
+        </span>
+        <span class="project-selector-copy">
+          <span class="project-selector-name">Bowcast</span>
+          <span class="project-selector-field">Atmospheric physics · software</span>
+          <span class="project-state">Viewing</span>
+        </span>
+      </a>
+      <a class="project-selector" href="https://thesunnyshams.github.io/black-hole-census/" data-project="black-hole-census">
+        <span class="project-icon-wrap">
+          <img class="project-icon" src="assets/black-hole-census-icon.svg" alt="">
+        </span>
+        <span class="project-selector-copy">
+          <span class="project-selector-name">Black Hole Census</span>
+          <span class="project-selector-field">Astronomy · data engineering</span>
+          <span class="project-state">Select</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="project-viewer" id="viewer" data-reveal-group>
+      <div class="project-viewer-bar">
+        <div>
+          <h3 class="project-viewer-title" id="project-viewer-title">Bowcast</h3>
+          <p class="project-viewer-meta" id="project-viewer-meta">Atmospheric physics · software · Live worldwide rainbow forecast</p>
+          <p class="project-viewer-status" id="project-viewer-status" role="status">Loading live preview</p>
+        </div>
+        <div class="project-viewer-actions">
+          <a class="project-viewer-link mark-underline" id="project-viewer-link" href="https://bowcast.app">Open Bowcast</a>
+          <a class="project-viewer-link mark-underline" id="project-viewer-source" href="https://github.com/thesunnyshams/bowcast-web">Source</a>
+        </div>
+      </div>
+      <div class="project-frame-shell is-switching" id="project-frame-shell">
+        <iframe
+          class="project-frame"
+          id="project-frame"
+          src="https://bowcast.app"
+          title="Bowcast live preview"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+          allow="geolocation 'none'">
+        </iframe>
+      </div>
+      <p class="project-viewer-note">
+        Live external page inside a constrained viewer. Location access is disabled inside the preview.
+      </p>
+    </div>
+  </section>
+
+  <footer data-reveal-group>
+    <p>
+      <a href="mailto:i@shamseddin.net">i@shamseddin.net</a> is the best way to reach me.
+      I answer everything that is not automated.
+    </p>
+    <p class="footer-links">
+      <a href="index.html">Home</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="about.html">About</a>
+      <span aria-hidden="true">&middot;</span>
+      <a href="https://github.com/thesunnyshams">GitHub</a>
+    </p>
+    <p class="langs" lang="">English &middot; <span lang="ar" dir="rtl">&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</span> &middot; <span lang="tr">Türkçe</span></p>
+    <p class="footer-stamp">Updated <time datetime="2026-07">July 2026</time></p>
+    <fieldset class="theme-toggle" id="theme-toggle">
+      <legend>Theme</legend>
+      <label class="theme-option"><input type="radio" name="theme" value="system">System</label>
+      <label class="theme-option"><input type="radio" name="theme" value="light">Light</label>
+      <label class="theme-option"><input type="radio" name="theme" value="dark">Dark</label>
+    </fieldset>
+    <script src="theme.js"></script>
+    <script src="project-viewer.js"></script>
+    <script src="reveal.js"></script>
+  </footer>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+/* The measurement grammar. One ornament: a horizontal interval mark, built from
+   three elements (end cap, hairline rule, filled dot).
+
+   THE GOVERNING RULE: rows do not share a scale. A chart is a set of marks
+   sharing an axis; if every mark were plotted from zero to 102 the reader would
+   compare a team of four against a peak of 102, and the smallest true figures
+   would render shortest, so the layout would silently editorialize against
+   them. Each mark is scaled within its own row only. Magnitude lives in the
+   mono numeral. The mark encodes the epistemic shape of the figure: a range, an
+   exact count, a floor, or nothing measured.
+
+   No axis, no baseline, no gridlines, no tick labels, no legend. Nothing is
+   filled except the dot. No colour varies by row or by magnitude. Marks never
+   animate, at any time, for any reason. Four states, permanently. */
+
+:root{
+  --mark-track:120px;
+  --mark-track-mobile:88px;
+  --mark-row:24px;
+  --mark-cap:8px;
+  --mark-dot-size:3px;
+}
+
+.mark{
+  display:block;
+  flex:none;
+  width:var(--mark-track-mobile);
+  height:var(--mark-row);
+  overflow:visible;
+  color:var(--mark-rule);
+}
+@media (min-width:640px){.mark{width:var(--mark-track)}}
+
+.mark .mark-rule,.mark .mark-cap{stroke:currentColor;stroke-width:1;fill:none}
+.mark .mark-point{fill:var(--measured);stroke:none}
+.mark--unquantified{color:var(--mark-absent)}
+.mark--unquantified .mark-rule{opacity:0.3}
+
+/* ---- register ------------------------------------------------------------ */
+/* A register should look like a register: hairline rules between rows, no
+   cards, no shadows, no rounded corners. */
+
+.register{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-default)}
+.register-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  grid-template-areas:"name figure";
+  align-items:baseline;
+  gap:var(--space-2) var(--space-4);
+  padding:var(--space-4) 0;
+  border-bottom:1px solid var(--rule-default);
+  min-height:72px;
+}
+.register-name{grid-area:name;font-size:var(--size-body);line-height:var(--leading-title);margin:0}
+.register-clause{color:var(--text-secondary);font-size:var(--size-caption)}
+.register-figure{
+  grid-area:figure;
+  display:flex;
+  align-items:center;
+  gap:var(--space-3);
+}
+.register-value{
+  font-family:var(--font-mono);
+  font-size:var(--size-number);
+  font-feature-settings:"tnum" 1,"zero" 1;
+  color:var(--text-primary);
+  white-space:nowrap;
+}
+.register-value--absent{color:var(--unknown)}
+.register-source{
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  color:var(--text-tertiary);
+  white-space:nowrap;
+}
+@media (min-width:640px){
+  .register-row{grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"name figure source";align-items:center}
+  .register-source{grid-area:source;text-align:right;min-width:11ch}
+}
+
+/* ---- semantic chips ------------------------------------------------------ */
+/* The three chromatic values never appear without their word label, so the
+   encoding never depends on colour alone. */
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-2);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  font-weight:var(--weight-medium);
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  line-height:1;
+  white-space:nowrap;
+}
+.chip::before{content:"";width:6px;height:6px;flex:none;background:currentColor}
+.chip--measured{color:var(--measured)}
+.chip--derived{color:var(--derived)}
+.chip--modeled{color:var(--modeled)}
+.chip--unknown{color:var(--unknown)}
+.chip--unknown::before{background:none;box-shadow:inset 0 0 0 1px currentColor}
+
+/* ---- the reading --------------------------------------------------------- */
+/* 40 ticks. The filled fraction is the live ensemble probability. When the
+   ensemble is unavailable every tick is grey and the label says so: never a
+   fallback number sitting in the slot where the real one belongs. */
+
+.reading{display:block;margin:var(--space-12) 0 var(--space-8)}
+.reading-ticks{display:block;width:100%;max-width:520px;height:auto}
+.reading-ticks--stacked{display:none}
+@media (max-width:519px){
+  .reading-ticks--wide{display:none}
+  .reading-ticks--stacked{display:block;max-width:280px}
+}
+.reading-ticks .tick{fill:var(--hairline)}
+.reading-ticks .tick--on{fill:var(--modeled)}
+.reading--absent .tick,.reading--absent .tick--on{fill:var(--unknown);opacity:0.45}
+.reading-label{
+  margin-top:var(--space-3);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  line-height:1.5;
+}
+.reading-value{
+  font-family:var(--font-mono);
+  font-size:var(--size-number);
+  font-feature-settings:"tnum" 1,"zero" 1;
+  color:var(--text-primary);
+}
+
+/* ---- provenance panel ---------------------------------------------------- */
+
+.provenance{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:var(--size-caption);text-align:left}
+.provenance caption{
+  font-size:var(--size-label);letter-spacing:var(--track-label);text-transform:uppercase;
+  color:var(--text-secondary);text-align:left;padding-bottom:var(--space-3);
+}
+.provenance th{
+  font-weight:var(--weight-medium);font-size:var(--size-label);letter-spacing:var(--track-label);
+  text-transform:uppercase;color:var(--text-tertiary);
+  padding:var(--space-2) var(--space-4) var(--space-2) 0;border-bottom:1px solid var(--rule-section);
+}
+.provenance td{
+  padding:var(--space-3) var(--space-4) var(--space-3) 0;border-bottom:1px solid var(--rule-default);
+  color:var(--text-secondary);vertical-align:top;font-feature-settings:"tnum" 1,"zero" 1;
+}
+
+/* ---- bracketed specimen -------------------------------------------------- */
+/* For quoted source material: a hairline bracket down the left edge, no card. */
+
+.specimen{
+  margin:0;
+  padding-left:var(--space-6);
+  border-left:1px solid var(--rule-section);
+  font-size:var(--size-lede);
+  color:var(--text-primary);
+  max-width:var(--measure-wide);
+}
+
+/* ---- interval underline -------------------------------------------------- */
+/* The mark's other job: end caps drawn cap to cap under a hovered standalone
+   link. Applied only to standalone links, never to links inside a paragraph,
+   where a wrapped line would break the caps. */
+
+.mark-underline{
+  position:relative;
+  text-decoration:none;
+  font-family:var(--font-mono);
+  font-size:var(--size-caption);
+}
+.mark-underline::before,.mark-underline::after{
+  content:"";position:absolute;bottom:-5px;width:1px;height:7px;
+  background:currentColor;opacity:0;transition:opacity var(--duration-fast) var(--ease);
+}
+.mark-underline::before{left:0}
+.mark-underline::after{right:0}
+.mark-underline{
+  background-image:linear-gradient(currentColor,currentColor);
+  background-size:100% 1px;background-repeat:no-repeat;background-position:0 100%;
+  padding-bottom:5px;
+}
+.mark-underline:hover::before,.mark-underline:hover::after,
+.mark-underline:focus-visible::before,.mark-underline:focus-visible::after{opacity:1}

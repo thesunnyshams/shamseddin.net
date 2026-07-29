@@ -1,0 +1,21 @@
+/* Asymmetric two-track layout: a narrow mono margin rail carrying dates,
+   sources and cadence, and a main column carrying prose and figures. The
+   assembly is left-weighted inside the container, not centred: an open right
+   field makes the page read as a technical report rather than a web layout.
+   Nothing is ever fixed or sticky, at any breakpoint. */
+
+:root{
+  --rail-width:180px;
+  --rail-gap:var(--space-12);
+  --container-max:1200px;
+  --gutter:20px;
+  --radius:0;              /* no rounded cards anywhere on this site */
+  --shadow:none;           /* and no shadows */
+  --hairline-weight:1px;
+  --duration-fast:120ms; /* @kind other */
+  --duration:200ms; /* @kind other */
+  --ease:cubic-bezier(0.2,0,0.3,1); /* @kind other */
+}
+
+@media (min-width:640px){:root{--gutter:40px}}
+@media (min-width:1024px){:root{--gutter:64px}}

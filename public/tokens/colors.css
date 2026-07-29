@@ -1,0 +1,122 @@
+/* Colour carries meaning or it does not appear.
+   Three chromatic values encode epistemic status only: MEASURED, DERIVED,
+   MODELED. Each is always paired with a mono word label in the markup, so the
+   encoding never depends on colour alone. Absence (--unknown) is deliberately
+   the same value as --text-tertiary: absence should look like absence, not like
+   a fourth category.
+   Dark is the default. Light is cool neutral, explicitly not Bowcast's warm
+   paper, so the two sites read as different objects by the same person. */
+
+:root{
+  color-scheme:dark;
+
+  --surface-0:#0B0E13;
+  --surface-1:#12161D;
+  --surface-2:#1A2029;
+  --hairline:#232B36;
+  --hairline-strong:#39434F;
+
+  --text-primary:#E9EBEE;
+  --text-secondary:#A2AAB6;
+  --text-tertiary:#8A939F;
+
+  --measured:#57C7B8;
+  --derived:#D8A247;
+  --modeled:#8B7BE8;
+  --unknown:#8A939F;
+
+  /* Interactive affordance, kept separate from the three epistemic values.
+     A link is not a measurement, and aliasing the two made the teal mean two
+     different things. Crimson is the interaction colour: links, focus, the
+     current-page dot, the selected control. It never labels a value. */
+  --crimson:#F0637A;
+  --accent:var(--crimson);
+  --accent-hover:#F98494;
+
+  --link:var(--accent);
+  --link-hover:var(--accent-hover);
+  --focus-ring:var(--accent);
+
+  --todo-bg:#3A2E0C;
+  --todo-text:#F2D98A;
+  --todo-border:#6B5514;
+
+  /* semantic aliases */
+  --text-body:var(--text-primary);
+  --text-label:var(--text-tertiary);
+  --text-caption:var(--text-secondary);
+  --surface-page:var(--surface-0);
+  --surface-panel:var(--surface-1);
+  --surface-inset:var(--surface-2);
+  --rule-default:var(--hairline);
+  --rule-section:var(--hairline-strong);
+  --mark-rule:var(--text-tertiary);
+  --mark-absent:var(--unknown);
+}
+
+@media (prefers-color-scheme:light){
+  :root{
+    color-scheme:light;
+    --surface-0:#F6F7F9;
+    --surface-1:#FFFFFF;
+    --surface-2:#EDEFF3;
+    --hairline:#DCE0E6;
+    --hairline-strong:#B4BCC6;
+    --text-primary:#10141A;
+    --text-secondary:#454E5A;
+    --text-tertiary:#5F6874;
+    --measured:#0F6F62;
+    --derived:#7A5206;
+    --modeled:#4A3CA8;
+    --unknown:#5F6874;
+    --crimson:#A8102F;
+    --accent-hover:#8A0C26;
+    --todo-bg:#FDF3D0;
+    --todo-text:#4A3803;
+    --todo-border:#D9BC5B;
+  }
+}
+
+/* Explicit choice, set by the footer toggle, wins over the system preference. */
+
+:root[data-theme="light"]{
+  color-scheme:light;
+  --surface-0:#F6F7F9;
+  --surface-1:#FFFFFF;
+  --surface-2:#EDEFF3;
+  --hairline:#DCE0E6;
+  --hairline-strong:#B4BCC6;
+  --text-primary:#10141A;
+  --text-secondary:#454E5A;
+  --text-tertiary:#5F6874;
+  --measured:#0F6F62;
+  --derived:#7A5206;
+  --modeled:#4A3CA8;
+  --unknown:#5F6874;
+  --crimson:#A8102F;
+  --accent-hover:#8A0C26;
+  --todo-bg:#FDF3D0;
+  --todo-text:#4A3803;
+  --todo-border:#D9BC5B;
+}
+
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --surface-0:#0B0E13;
+  --surface-1:#12161D;
+  --surface-2:#1A2029;
+  --hairline:#232B36;
+  --hairline-strong:#39434F;
+  --text-primary:#E9EBEE;
+  --text-secondary:#A2AAB6;
+  --text-tertiary:#8A939F;
+  --measured:#57C7B8;
+  --derived:#D8A247;
+  --modeled:#8B7BE8;
+  --unknown:#8A939F;
+  --crimson:#F0637A;
+  --accent-hover:#F98494;
+  --todo-bg:#3A2E0C;
+  --todo-text:#F2D98A;
+  --todo-border:#6B5514;
+}

@@ -1,0 +1,27 @@
+/* Self-hosted only. No third-party font CDN: a site about provenance should not
+   leak its readers to Google for a typeface. Files under assets/fonts/, OFL. */
+
+@font-face{font-family:"Newsreader";font-style:normal;font-weight:200 800;font-stretch:normal;font-display:swap;src:url("../assets/fonts/Newsreader[opsz,wght].ttf") format("truetype-variations");font-variation-settings:"opsz" 16}
+@font-face{font-family:"Newsreader";font-style:italic;font-weight:200 800;font-stretch:normal;font-display:swap;src:url("../assets/fonts/Newsreader-Italic[opsz,wght].ttf") format("truetype-variations")}
+
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url("../assets/fonts/IBMPlexMono-Regular.ttf") format("truetype")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:url("../assets/fonts/IBMPlexMono-Medium.ttf") format("truetype")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url("../assets/fonts/IBMPlexMono-SemiBold.ttf") format("truetype")}
+
+@font-face{font-family:"IBM Plex Sans Arabic";font-style:normal;font-weight:400;font-display:swap;src:url("../assets/fonts/IBMPlexSansArabic-Regular.ttf") format("truetype")}
+@font-face{font-family:"IBM Plex Sans Arabic";font-style:normal;font-weight:500;font-display:swap;src:url("../assets/fonts/IBMPlexSansArabic-Medium.ttf") format("truetype")}
+
+:root{
+  --font-serif:"Newsreader",Charter,"Iowan Old Style",Georgia,serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-arabic:"IBM Plex Sans Arabic","Geeza Pro",serif;
+
+  /* Optical size settings. Newsreader's opsz axis runs 6 to 72. */
+  --opsz-display:"opsz" 44; /* @kind font */
+  --opsz-title:"opsz" 24; /* @kind font */
+  --opsz-prose:"opsz" 16; /* @kind font */
+
+  /* Every figure on this site is tabular with a slashed zero. Not optional:
+     columns of measurements have to align, and 0 must never read as O. */
+  --num-tabular:"tnum" 1,"zero" 1; /* @kind font */
+}

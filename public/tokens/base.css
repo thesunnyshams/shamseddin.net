@@ -1,0 +1,229 @@
+/* Element-level defaults. Everything here styles the semantic markup as it
+   already stands: h1, h2, h3, p.lede, p.meta, article.entry, nav, footer.
+   Restyling this site should never require touching its HTML. */
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  min-height:100svh;
+  background:var(--surface-page);
+  color:var(--text-body);
+  font-family:var(--font-serif);
+  font-variation-settings:var(--opsz-prose);
+  font-size:var(--size-body);
+  line-height:var(--leading-prose);
+  text-wrap:pretty;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Left-weighted inside the container, not centred: the open right field is
+   what makes the page read as a page from a technical report. */
+main{
+  max-width:var(--container-max);
+  margin:0;
+  padding:var(--space-12) var(--gutter) var(--pad-page-bottom);
+}
+@media (min-width:1024px){main{padding-top:var(--space-16)}}
+@media (min-width:1441px){main{margin-inline:auto}}
+
+/* ---- navigation ---------------------------------------------------------- */
+
+nav[aria-label="Primary"]{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-6);
+  margin-bottom:var(--space-16);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  font-weight:var(--weight-medium);
+  line-height:1;
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+}
+nav[aria-label="Primary"] a{
+  display:inline-flex;
+  align-items:center;
+  min-height:44px;
+  color:var(--text-tertiary);
+  text-decoration:none;
+}
+nav[aria-label="Primary"] a:hover{color:var(--text-primary)}
+nav[aria-label="Primary"] a[aria-current="page"]{color:var(--text-primary)}
+
+/* ---- display and headings ------------------------------------------------ */
+
+h1{
+  margin:0 0 var(--space-6);
+  font-size:var(--size-display);
+  font-variation-settings:var(--opsz-display);
+  font-weight:var(--weight-regular);
+  line-height:var(--leading-display);
+  letter-spacing:var(--track-display);
+  max-width:24ch;
+}
+.intro h1+.lede{margin-top:0}
+
+h2{
+  margin:0 0 var(--space-8);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  font-weight:var(--weight-semibold);
+  line-height:1;
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  color:var(--text-secondary);
+}
+
+h3{
+  margin:0 0 var(--space-2);
+  font-size:var(--size-entry);
+  font-variation-settings:var(--opsz-title);
+  font-weight:var(--weight-medium);
+  line-height:var(--leading-title);
+  letter-spacing:-0.004em;
+}
+
+/* ---- prose --------------------------------------------------------------- */
+
+p{margin:0 0 var(--gap-paragraph);max-width:var(--measure-prose)}
+p:last-child{margin-bottom:0}
+
+.lede{
+  font-size:var(--size-lede);
+  color:var(--text-primary);
+  max-width:52ch;
+}
+.intro p:not(.lede):not(.meta):not(.placement){color:var(--text-secondary)}
+
+/* Mono rail metadata: dates, cadence, sources, coordinates. Sentence case,
+   because these are short sentences and uppercase would cost legibility.
+   Uppercase and tracking are reserved for labels of four words or fewer. */
+.meta{
+  font-family:var(--font-mono);
+  font-size:var(--size-caption);
+  font-variation-settings:var(--num-tabular);
+  font-feature-settings:"tnum" 1,"zero" 1;
+  line-height:var(--leading-mono);
+  color:var(--text-tertiary);
+  max-width:52ch;
+}
+
+.placement{
+  font-family:var(--font-mono);
+  font-size:var(--size-number);
+  font-feature-settings:"tnum" 1,"zero" 1;
+  color:var(--text-secondary);
+}
+
+time{font-feature-settings:"tnum" 1,"zero" 1}
+
+/* ---- sections and entries ------------------------------------------------ */
+
+section{margin-top:var(--gap-section)}
+@media (min-width:1024px){section{margin-top:var(--gap-section-desktop)}}
+
+article{margin-top:var(--gap-subsection)}
+article:first-of-type{margin-top:0}
+article p{color:var(--text-secondary)}
+article p.meta{color:var(--text-tertiary)}
+
+/* The two-track grid. The rail carries .meta; the main column carries
+   everything else. Below 1024px the rail collapses and its content sits
+   directly above the thing it annotates. */
+@media (min-width:1024px){
+  section>h2,section>p,section>ul{margin-left:calc(var(--rail-width) + var(--rail-gap))}
+  section>h2{margin-left:0}
+  article.entry,article.project{
+    display:grid;
+    grid-template-columns:var(--rail-width) minmax(0,var(--measure-main));
+    column-gap:var(--rail-gap);
+    align-items:start;
+  }
+  article.entry>*,article.project>*{grid-column:2}
+  article.entry>.meta:first-of-type,article.project>.meta:first-of-type{
+    grid-column:1;grid-row:1;
+    margin:0;
+    padding-top:0.55em;
+    text-align:left;
+  }
+}
+
+ul{margin:0;padding-left:1.1em;max-width:var(--measure-prose);color:var(--text-secondary)}
+li{margin-bottom:var(--space-3)}
+li::marker{color:var(--text-tertiary)}
+
+/* ---- links --------------------------------------------------------------- */
+
+a{
+  color:var(--link);
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+  text-decoration-color:color-mix(in srgb,var(--link) 50%,transparent);
+  transition:color var(--duration-fast) var(--ease),text-decoration-color var(--duration-fast) var(--ease);
+}
+a:hover{color:var(--link-hover);text-decoration-color:var(--link-hover)}
+
+h3 a{color:var(--text-primary);text-decoration-color:var(--hairline-strong)}
+h3 a:hover{color:var(--text-primary);text-decoration-color:var(--accent)}
+
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+
+/* ---- footer -------------------------------------------------------------- */
+
+footer{
+  margin-top:var(--gap-section);
+  padding-top:var(--space-8);
+  border-top:var(--hairline-weight) solid var(--rule-default);
+  font-family:var(--font-mono);
+  font-size:var(--size-caption);
+  line-height:var(--leading-mono);
+  color:var(--text-tertiary);
+}
+footer p{margin-bottom:var(--space-4);max-width:48ch}
+footer a{color:var(--link)}
+@media (min-width:1024px){footer{margin-top:var(--gap-section-desktop)}}
+
+.langs{font-family:var(--font-mono)}
+.langs [lang="ar"]{
+  font-family:var(--font-arabic);
+  font-size:calc(1em * var(--arabic-scale));
+  line-height:1;
+}
+.langs [lang="tr"]{font-family:var(--font-mono)}
+
+/* ---- placeholder chips --------------------------------------------------- */
+/* Temporary scaffolding for facts not yet confirmed. Styled to stay loud so
+   nothing unverified ships by accident. Delete the span, then this rule. */
+
+.todo{
+  display:inline;
+  padding:0.1em 0.4em;
+  background:var(--todo-bg);
+  color:var(--todo-text);
+  border:1px dashed var(--todo-border);
+  font-family:var(--font-mono);
+  font-size:0.8em;
+  text-transform:uppercase;
+  letter-spacing:0.04em;
+}
+
+/* ---- motion -------------------------------------------------------------- */
+/* The owner explicitly approved restrained scroll reveals on 2026-07-28.
+   The implementation lives in motion.css and remains optional. */
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+}
+
+/* ---- print --------------------------------------------------------------- */
+
+@media print{
+  :root{--surface-0:#fff;--text-primary:#000;--text-secondary:#222;--text-tertiary:#444;--measured:#000;--hairline:#bbb}
+  main{padding:0}
+  nav[aria-label="Primary"]{display:none}
+  a{color:#000;text-decoration-color:#888}
+}

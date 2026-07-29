@@ -1,0 +1,30 @@
+/* Base unit 4px, vertical rhythm quantized to 8px. */
+
+:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-24:96px;
+  --space-32:128px;
+  --space-48:192px;
+
+  /* applied rules */
+  --gap-label:var(--space-2);
+  --gap-paragraph:var(--space-6);
+  --gap-subsection:var(--space-12);
+  --gap-section:var(--space-24);
+  --gap-section-desktop:var(--space-32);
+
+  /* The iPhone Safari bottom URL bar sits exactly where a page ends.
+     Never less than 120px, plus the safe-area inset. */
+  --pad-page-bottom:calc(120px + env(safe-area-inset-bottom,0px));
+}
+
+@media (min-width:1024px){
+  :root{--pad-page-bottom:calc(160px + env(safe-area-inset-bottom,0px))}
+}

@@ -1,0 +1,33 @@
+/* 1.25 scale, quantized to the 8px rhythm where possible.
+   Body prose never below 17px on mobile. */
+
+:root{
+  --size-display:clamp(40px,2.4rem + 3.4vw,68px);
+  --size-page-title:clamp(32px,2rem + 1.6vw,44px);
+  --size-section:clamp(26px,1.5rem + 0.7vw,32px);
+  --size-entry:clamp(22px,1.3rem + 0.5vw,28px);
+  --size-lede:clamp(19px,1.1rem + 0.4vw,21px);
+  --size-body:clamp(17px,1.05rem + 0.1vw,18px);
+  --size-number:clamp(15px,0.95rem,16px);
+  --size-caption:clamp(13px,0.82rem,14px);
+  --size-label:clamp(11px,0.7rem,12px);
+
+  --leading-display:1.05;
+  --leading-title:1.2;
+  --leading-prose:1.6;
+  --leading-mono:1.45;
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+
+  --track-label:0.08em;
+  --track-display:-0.012em;
+
+  /* Arabic needs roughly 1.15 to 1.25x the Latin size to feel equal in weight. */
+  --arabic-scale:1.2; /* @kind other */
+
+  --measure-prose:66ch;
+  --measure-main:34rem;
+  --measure-wide:40rem;
+}

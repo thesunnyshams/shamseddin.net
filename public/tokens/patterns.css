@@ -1,0 +1,217 @@
+/* Patterns that need more than element defaults: section labels, the register's
+   name cell, the bracketed specimen, the nav dot, the footer and its theme
+   control. All of it hairlines and type: no cards, no shadows, no radii. */
+
+.section-label{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:var(--space-4);
+  margin:0 0 var(--space-8);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  font-weight:var(--weight-semibold);
+  line-height:1;
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  color:var(--text-secondary);
+}
+.section-stamp{
+  font-weight:var(--weight-regular);
+  letter-spacing:0.04em;
+  color:var(--text-tertiary);
+  font-feature-settings:"tnum" 1,"zero" 1;
+}
+
+/* ---- register name cell -------------------------------------------------- */
+
+.register-title{
+  margin:0;
+  font-size:var(--size-entry);
+  font-variation-settings:var(--opsz-title);
+  font-weight:var(--weight-medium);
+  line-height:var(--leading-title);
+}
+.register-title a{color:var(--text-primary);text-decoration-color:var(--hairline-strong)}
+.register-title a:hover{text-decoration-color:var(--accent)}
+.register-clause{margin-top:var(--space-2);max-width:46ch}
+.register-rail{
+  margin-top:var(--space-2);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  font-feature-settings:"tnum" 1,"zero" 1;
+}
+
+@media (min-width:1024px){
+  /* The rail returns: date range and cadence only, aligned left of the name. */
+  .register-row{grid-template-columns:var(--rail-width) minmax(0,1fr) auto auto;grid-template-areas:"rail name figure source";column-gap:var(--rail-gap)}
+  .register-rail{grid-area:rail;margin-top:0}
+  .register-name{display:contents}
+  .register-title,.register-clause{grid-area:name}
+  .register-name>.register-rail{grid-area:rail;align-self:start;padding-top:0.5em}
+}
+
+/* ---- specimen ------------------------------------------------------------ */
+
+.specimen-block{margin:var(--gap-subsection) 0;display:grid;gap:var(--space-4)}
+.specimen-rail{
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+}
+.specimen p{margin-bottom:var(--space-4)}
+.specimen p:last-child{margin-bottom:0}
+@media (min-width:1024px){
+  .specimen-block{grid-template-columns:var(--rail-width) minmax(0,var(--measure-wide));column-gap:var(--rail-gap);align-items:start}
+  .specimen-rail{padding-top:0.4em}
+}
+
+/* ---- the record: prose entries that behave like a register --------------- */
+/* Hairline rules between rows because a register should look like a register.
+   No cards, no shadows, no rounded corners, and no icons. */
+
+section.record article.entry{
+  border-top:1px solid var(--rule-default);
+  padding-top:var(--space-6);
+  margin-top:var(--space-8);
+}
+section.record article.entry:last-of-type{border-bottom:1px solid var(--rule-default);padding-bottom:var(--space-8)}
+
+/* ---- second lead beat --------------------------------------------------- */
+/* The opening is two beats: his positioning line, then what he is pointing the
+   work at. */
+
+.lede--second{margin-top:var(--space-6)}
+
+/* ---- reading note ------------------------------------------------------- */
+/* Scaffolding attached to the reading, in the main column. reading.js removes
+   it as soon as a live value lands, so it is never rail furniture. */
+
+.reading-note{
+  margin:0 0 var(--gap-paragraph);
+  font-family:var(--font-mono);
+  font-size:var(--size-caption);
+  line-height:var(--leading-mono);
+  color:var(--text-tertiary);
+  max-width:var(--measure-main);
+}
+
+/* ---- grade register ----------------------------------------------------- */
+/* Results stay factual and scan like measurements, without turning into
+   promotional score cards. */
+
+.grade-list{
+  margin:0;
+  max-width:var(--measure-wide);
+  border-top:1px solid var(--rule-default);
+}
+.grade-list>div{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:var(--space-4);
+  align-items:baseline;
+  padding:var(--space-4) 0;
+  border-bottom:1px solid var(--rule-default);
+}
+.grade-list dt,.grade-list dd{margin:0}
+.grade-list dd{
+  font-family:var(--font-mono);
+  font-size:var(--size-number);
+  font-feature-settings:"tnum" 1,"zero" 1;
+  color:var(--text-secondary);
+}
+.grade-equivalent{
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  letter-spacing:0.02em;
+  color:var(--text-tertiary);
+}
+
+/* ---- field tag ----------------------------------------------------------- */
+/* The disciplines a thing belongs to, named in mono. This is the site's primary
+   recurring device: read down the page and the spread of fields is the argument.
+   Where an item crosses two fields, both are named, because the crossing is the
+   point. No colour: six disciplines in six hues would be decoration. */
+
+.field{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);
+  margin:0 0 var(--space-4);
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  font-weight:var(--weight-medium);
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  line-height:1.4;
+  color:var(--text-secondary);
+}
+.field-sep{color:var(--text-tertiary)}
+.field>span:not(.field-sep){white-space:nowrap}
+
+/* ---- figure row: a real number, its mark, and where it came from --------- */
+/* Sits after the prose, not before it: a figure is evidence for a claim, not
+   the claim itself. */
+
+.figure{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-3) var(--space-4);
+  margin:var(--space-4) 0 0;
+  font-family:var(--font-mono);
+  max-width:var(--measure-main);
+}
+.figure-value{
+  font-family:var(--font-mono);font-size:var(--size-number);
+  font-feature-settings:"tnum" 1,"zero" 1;
+  color:var(--text-secondary);
+}
+.figure-value--absent{color:var(--unknown)}
+.figure-source{font-family:var(--font-mono);font-size:var(--size-label);letter-spacing:0.03em;color:var(--text-tertiary)}
+
+/* ---- nav dot: the interval mark reduced to its point --------------------- */
+
+.nav-dot{
+  width:5px;height:5px;flex:none;margin-right:var(--space-2);
+  background:var(--accent);
+}
+
+/* ---- footer -------------------------------------------------------------- */
+
+.footer-links{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+.footer-foot{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  gap:var(--space-4);
+  margin-top:var(--space-8);
+  padding-top:var(--space-4);
+  border-top:1px solid var(--rule-default);
+}
+.footer-stamp{font-feature-settings:"tnum" 1,"zero" 1;color:var(--text-tertiary)}
+
+/* ---- theme toggle -------------------------------------------------------- */
+
+.theme-toggle{
+  display:flex;align-items:center;gap:var(--space-3);
+  margin:0;padding:0;border:0;
+  font-family:var(--font-mono);font-size:var(--size-label);
+  letter-spacing:var(--track-label);text-transform:uppercase;
+}
+.theme-toggle legend{
+  float:left;padding:0;margin-right:var(--space-3);
+  color:var(--text-tertiary);
+}
+.theme-option{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  min-height:44px;padding:0;
+  color:var(--text-tertiary);cursor:pointer;
+}
+.theme-option:hover{color:var(--text-primary)}
+.theme-option--on{color:var(--text-primary)}
+.theme-option input{
+  appearance:none;-webkit-appearance:none;
+  width:8px;height:8px;margin:0;
+  border:1px solid var(--hairline-strong);background:transparent;
+}
+.theme-option input:checked{background:var(--accent);border-color:var(--accent)}
+.theme-option input:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}

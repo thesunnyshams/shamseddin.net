@@ -1,0 +1,39 @@
+/* Scroll reveal is an explicit 2026-07-28 owner override to the original
+   no-scroll-animation rule. Content is visible by default. JavaScript adds the
+   pending class only after an observer and a timed fallback are ready. */
+
+:root{
+  --duration-reveal:460ms;
+  --ease-reveal:cubic-bezier(0.16,1,0.3,1);
+}
+
+.reveal-pending{
+  opacity:0;
+  transform:translateY(14px);
+}
+
+.reveal-pending.is-revealed{
+  opacity:1;
+  transform:none;
+  transition:
+    opacity var(--duration-reveal) var(--ease-reveal),
+    transform var(--duration-reveal) var(--ease-reveal);
+  transition-delay:calc(var(--reveal-order,0) * 80ms);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal-pending,
+  .reveal-pending.is-revealed{
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+}
+
+@media print{
+  .reveal-pending,
+  .reveal-pending.is-revealed{
+    opacity:1;
+    transform:none;
+  }
+}

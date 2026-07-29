@@ -1,0 +1,8 @@
+.DS_Store
+
+# Held back from the public repo on purpose. docs/ contains the positioning and
+# audience strategy written for screeners, including what to cut and what is
+# still thin. Those are working notes, not published material, and this repo is
+# public. Delete this line if you decide otherwise: adding files later is easy,
+# removing them from public history is not.
+docs/
