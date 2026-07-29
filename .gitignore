@@ -1,4 +1,5 @@
 .DS_Store
+.claude/
 
 # Held back from the public repo on purpose. docs/ contains the positioning and
 # audience strategy written for screeners, including what to cut and what is
