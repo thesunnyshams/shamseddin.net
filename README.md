@@ -66,9 +66,12 @@ To wire the domain:
 
 1. Import the repo in Vercel. Framework preset "Other", no build command.
 2. Add both `shamseddin.net` and `www.shamseddin.net` as domains, with one redirecting to the other.
-3. In Cloudflare, replace the parking lander records with the A and CNAME records Vercel gives you.
-   The apex currently redirects to `/lander`: that page rule or redirect has to go, or it will win
-   over the new records.
+3. Edit the records **in Cloudflare, not GoDaddy**. GoDaddy is the registrar, but the domain is
+   delegated to Cloudflare nameservers (`coby.ns.cloudflare.com`, `galilea.ns.cloudflare.com`), so
+   the GoDaddy DNS panel is not what is being served. Replace the parking lander's A records with
+   the ones Vercel gives you and set the records to DNS-only (grey cloud) rather than proxied. The
+   apex currently redirects to `/lander`: that redirect or page rule has to go, or it will win over
+   the new records.
 
 Mail must not break when DNS changes: i@shamseddin.net is Google Workspace
 (`MX 1 smtp.google.com`, plus a Google SPF TXT record). Leave the MX and SPF records alone. Only
