@@ -1,0 +1,143 @@
+/* The margin reticle.
+
+   The open field beside the container was reading as a hole rather than as a
+   margin. What fills it is the site's own ornament turned on its side: the
+   interval mark's rule, caps and point, plus the tick pitch of the reading
+   strip, built into a scale down the right edge.
+
+   It is decoration that does work. The rule is the document, the fiducials are
+   its sections, and the point is where the reader is standing in it. That is a
+   readout, not an entrance effect, which is why it is allowed to move: the
+   only thing driving it is the reader's own scroll.
+
+   Rules it keeps: no axis labels, no gridlines, nothing filled except the
+   point, no colour varying by position, and no shape that is not already in
+   marks.css. It is aria-hidden and injected by JavaScript, so it costs a
+   reader without JavaScript nothing at all. */
+
+:root{
+  --reticle-offset:32px;
+  --reticle-width:40px;
+  --reticle-labels:none;
+  --reticle-pitch:13px;
+}
+
+@media (min-width:1500px){
+  :root{
+    --reticle-width:180px;
+    --reticle-labels:block;
+  }
+}
+
+.field-reticle{
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:calc(50% + (var(--container-max) / 2) + var(--reticle-offset));
+  width:var(--reticle-width);
+  pointer-events:none;
+  z-index:0;
+  display:none;
+}
+
+/* Only once there is genuinely room beside the container. Below this the field
+   does not exist, so neither does the reticle: it never crowds the measure and
+   it never appears on a phone. */
+@media (min-width:1240px){
+  .field-reticle{display:block}
+}
+
+.reticle-track{
+  position:absolute;
+  top:18vh;
+  bottom:18vh;
+  left:0;
+  width:100%;
+}
+
+/* The rule, and the caps that close it. Same three elements as every interval
+   mark on the site, rotated a quarter turn. */
+.reticle-rule{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  width:1px;
+  background:var(--rule-default);
+}
+.reticle-cap{
+  position:absolute;
+  left:-4px;
+  width:9px;
+  height:1px;
+  background:var(--hairline-strong);
+}
+.reticle-cap--start{top:0}
+.reticle-cap--end{bottom:0}
+
+/* The tick ladder, at the reading strip's own pitch. */
+.reticle-ticks{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  width:7px;
+  background:repeating-linear-gradient(
+    to bottom,
+    var(--rule-default) 0 1px,
+    transparent 1px var(--reticle-pitch)
+  );
+  opacity:0.65;
+}
+
+/* Section fiducials: a longer tick, and the section's own label. */
+.reticle-mark{
+  position:absolute;
+  left:0;
+  display:flex;
+  align-items:center;
+  gap:var(--space-3);
+  transform:translateY(-50%);
+}
+.reticle-mark::before{
+  content:"";
+  flex:none;
+  width:15px;
+  height:1px;
+  background:var(--hairline-strong);
+}
+.reticle-label{
+  display:var(--reticle-labels);
+  max-width:130px;
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  font-weight:var(--weight-medium);
+  line-height:1.4;
+  letter-spacing:var(--track-label);
+  text-transform:uppercase;
+  color:var(--text-tertiary);
+  opacity:0.45;
+}
+.reticle-mark.is-active .reticle-label{color:var(--text-secondary);opacity:1}
+.reticle-mark.is-active::before{background:var(--text-secondary);width:22px}
+
+/* The point. The one filled thing, in the interaction colour rather than a
+   semantic one, because it reports where the reader is and not a measurement. */
+.reticle-point{
+  position:absolute;
+  left:-2px;
+  top:0;
+  width:5px;
+  height:5px;
+  background:var(--accent);
+  transform:translateY(-50%);
+}
+
+@media (prefers-reduced-motion:reduce){
+  .reticle-label,
+  .reticle-mark::before{transition:none}
+}
+
+@media print{
+  .field-reticle{display:none}
+}

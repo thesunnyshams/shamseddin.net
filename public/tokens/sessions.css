@@ -1,0 +1,112 @@
+/* Recordings are register rows, not a thumbnail grid. A grid of video stills
+   would be a card wall with someone else's art direction in it, and it would
+   say nothing the title and the runtime do not already say. So each recording
+   is an entry: mono rail carrying the posting date and the runtime, the title
+   in the main column, and one action line.
+
+   Nothing contacts YouTube until the visitor presses play. The player is built
+   in JavaScript on demand, only one exists at a time, and closing it removes
+   the iframe rather than hiding it. A site that self-hosts its typefaces so it
+   does not leak visitor IPs cannot then load six embeds nobody asked for. */
+
+/* ---- section lead -------------------------------------------------------- */
+/* A section label sitting above prose that has nothing in its rail leaves the
+   rail empty for the height of the paragraph, which reads as a hole rather
+   than as an open field. Where the rail has nothing to say, the label takes
+   it. Below 1024px the rail collapses and the label returns above the prose,
+   which is what every other section on the site already does. */
+
+.section-lead{margin-bottom:var(--gap-subsection)}
+
+@media (min-width:1024px){
+  .section-lead{
+    display:grid;
+    grid-template-columns:var(--rail-width) minmax(0,var(--measure-wide));
+    column-gap:var(--rail-gap);
+    align-items:start;
+  }
+  .section-lead>h2{margin:0;padding-top:7px}
+}
+
+.session-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:var(--space-3) var(--space-4);
+  margin:var(--space-4) 0 0;
+  font-family:var(--font-mono);
+}
+.session-sep{color:var(--text-tertiary)}
+
+/* Both controls are 14px mono, which is a 26px target. The tap target is grown
+   upward into the space above the line and pulled back with a matching negative
+   margin, so the hit area clears 44px without moving a pixel of the type or
+   dropping the interval underline away from its baseline. Alignment is by
+   baseline, so the padding does not shift anything. */
+.session-actions>a,
+.session-actions>.session-play{
+  padding-top:18px;
+  margin-top:-18px;
+}
+
+/* The play control is a button because it changes this page rather than going
+   anywhere. It carries the interval underline so it reads as the same kind of
+   affordance as the link beside it. */
+.session-play{
+  margin:0;
+  padding:0 0 5px;
+  border:0;
+  background-color:transparent;
+  appearance:none;
+  -webkit-appearance:none;
+  color:var(--link);
+  font-family:var(--font-mono);
+  font-size:var(--size-caption);
+  line-height:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.session-play:hover{color:var(--link-hover)}
+
+/* ---- the player ---------------------------------------------------------- */
+
+.session-player{
+  margin-top:var(--space-6);
+  max-width:var(--measure-wide);
+}
+.session-player[hidden]{display:none}
+
+.session-frame-shell{
+  position:relative;
+  aspect-ratio:16/9;
+  background:var(--surface-inset);
+  border-top:1px solid var(--rule-section);
+  border-bottom:1px solid var(--rule-section);
+}
+
+.session-frame{
+  display:block;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+.session-note{
+  margin:var(--space-3) 0 0;
+  font-family:var(--font-mono);
+  font-size:var(--size-label);
+  letter-spacing:0.03em;
+  line-height:var(--leading-mono);
+  color:var(--text-tertiary);
+  max-width:var(--measure-main);
+}
+
+@media (min-width:1024px){
+  /* The player takes the `wide` figure width: it spans the rail and the main
+     column, breaking left, so a recording is visibly a different kind of
+     object from the prose above it. */
+  article.entry.session>.session-player{
+    grid-column:1 / -1;
+    max-width:none;
+  }
+}

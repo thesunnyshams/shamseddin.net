@@ -23,11 +23,10 @@ body{
    what makes the page read as a page from a technical report. */
 main{
   max-width:var(--container-max);
-  margin:0;
+  margin-inline:auto;
   padding:var(--space-12) var(--gutter) var(--pad-page-bottom);
 }
 @media (min-width:1024px){main{padding-top:var(--space-16)}}
-@media (min-width:1441px){main{margin-inline:auto}}
 
 /* ---- navigation ---------------------------------------------------------- */
 

@@ -9,14 +9,17 @@ JavaScript, with no build step or dependencies.
 public/
   index.html    home page, including projects, education, experience and leadership
   projects.html bounded live viewer for Bowcast and Black Hole Census
+  sessions.html recordings: the Global Affairs presentation and Global Lunches
   about.html    biography and working principles
   style.css     Interval design-system entry point
   theme.js      three-state system/light/dark theme control
   reading.js    live Bowcast reading with an honest no-data fallback
-  reveal.js     reduced-motion-safe scroll reveal
+  motion.js     GSAP scroll reveals and the margin reticle, both with fallbacks
+  sessions.js   click-to-load players, one at a time, unloaded on close
   project-viewer.js interactive project selection
   assets/       self-hosted fonts, real project marks and credential evidence
   tokens/       visual foundations and component patterns
+  vendor/       GSAP and ScrollTrigger, self-hosted (see Dependencies)
 vercel.json     serves public/ at the domain root, no build step
 ```
 
@@ -25,7 +28,22 @@ It is local only: `.gitignore` keeps it out of this public repo, and the reason 
 
 There is no framework and no generator on purpose. The site remains readable when JavaScript is
 unavailable. JavaScript remembers the chosen theme, upgrades the static no-data forecast from
-Bowcast's public endpoint, switches the live project preview, and adds optional scroll reveals.
+Bowcast's public endpoint, switches the live project preview, mounts the session players on
+request, and adds optional scroll reveals and the margin reticle.
+
+## Dependencies
+
+One, vendored: GSAP 3.13.0 with ScrollTrigger, in `public/vendor/`. It drives the scroll reveals
+and the margin reticle.
+
+It is self-hosted rather than loaded from a CDN, for the same reason the fonts are. Browsers have
+partitioned the HTTP cache by top-level site since 2020, so a CDN copy has no chance of a cache hit
+and costs a fresh DNS lookup, connection and TLS handshake, while handing every visitor's IP to a
+third party. Vendoring also pins the exact bytes in this repo.
+
+Licensing: GSAP's standard licence allows use at no charge as long as end users are not charged to
+access the site. The licence headers are intact in both files. Updates are manual: replace the two
+files and re-check the reveals.
 
 ## Before publishing
 
@@ -47,7 +65,12 @@ fails, times out, or returns invalid data.
 - Date anything that can go stale, and never publish a link that does not work.
 - The real Bowcast and Black Hole Census marks are the only icons.
 - Scroll reveals are an explicit owner override: opacity and a small vertical transform only, with
-  visible content under reduced motion, unsupported JavaScript, and the safety timeout.
+  visible content under reduced motion, unsupported JavaScript, and the safety timeout. GSAP hides
+  its targets synchronously and restores them on a requestAnimationFrame ticker, so `motion.js`
+  keeps a guard that puts every element back if that ticker never runs. Do not remove it: a tab
+  opened in the background has a paused ticker, and without the guard the page stays blank.
+- Recordings never contact YouTube until a visitor presses play. Players load from
+  `youtube-nocookie.com`, only one exists at a time, and closing one removes the iframe.
 
 ## Local preview
 

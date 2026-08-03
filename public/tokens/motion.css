@@ -1,39 +1,24 @@
 /* Scroll reveal is an explicit 2026-07-28 owner override to the original
-   no-scroll-animation rule. Content is visible by default. JavaScript adds the
-   pending class only after an observer and a timed fallback are ready. */
+   no-scroll-animation rule. Content is visible by default and stays that way
+   without JavaScript: the reveal is now driven entirely by GSAP in motion.js,
+   which sets its own inline styles, so there is no pending class here to leave
+   content stranded if a script fails.
+
+   The easing tokens stay because other components share them: projects.css
+   uses --ease-reveal for the viewer's switch. */
 
 :root{
   --duration-reveal:460ms;
   --ease-reveal:cubic-bezier(0.16,1,0.3,1);
 }
 
-.reveal-pending{
-  opacity:0;
-  transform:translateY(14px);
-}
-
-.reveal-pending.is-revealed{
-  opacity:1;
-  transform:none;
-  transition:
-    opacity var(--duration-reveal) var(--ease-reveal),
-    transform var(--duration-reveal) var(--ease-reveal);
-  transition-delay:calc(var(--reveal-order,0) * 80ms);
-}
-
-@media (prefers-reduced-motion:reduce){
-  .reveal-pending,
-  .reveal-pending.is-revealed{
-    opacity:1;
-    transform:none;
-    transition:none;
-  }
-}
-
+/* Print must never inherit a mid-reveal state. GSAP writes opacity inline, so
+   only !important can win here, and this is the case that earns it: a printed
+   page with half its sections invisible is a broken document. */
 @media print{
-  .reveal-pending,
-  .reveal-pending.is-revealed{
-    opacity:1;
-    transform:none;
+  [data-reveal],
+  [data-reveal-group]>*{
+    opacity:1 !important;
+    transform:none !important;
   }
 }

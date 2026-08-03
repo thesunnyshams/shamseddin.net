@@ -7,7 +7,14 @@
 :root{
   --rail-width:180px;
   --rail-gap:var(--space-12);
-  --container-max:1200px;
+  /* Sized to what the layout can actually fill, not to a round number: the
+     widest run on the site is rail (180) + gap (48) + a 66ch measure (~673),
+     which is 901px, plus a gutter on each side. A 1200px container left an
+     internal dead zone of roughly 170px that no element could ever reach, so
+     the open right field stopped reading as a margin and started reading as a
+     hole. The rail-and-column assembly is unchanged; only the box around it
+     was too big. */
+  --container-max:1040px;
   --gutter:20px;
   --radius:0;              /* no rounded cards anywhere on this site */
   --shadow:none;           /* and no shadows */
