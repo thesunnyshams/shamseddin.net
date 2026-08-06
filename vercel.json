@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "redirects": [
+    { "source": "/blackhole-census", "destination": "/blackhole-census/", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/blackhole-census/", "destination": "https://thesunnyshams.github.io/black-hole-census/index.html" },
+    { "source": "/blackhole-census/:path*", "destination": "https://thesunnyshams.github.io/black-hole-census/:path*" }
+  ]
 }
