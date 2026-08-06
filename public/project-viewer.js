@@ -10,7 +10,7 @@
     "black-hole-census": {
       name:"Black Hole Census",
       field:"Astronomy · data engineering",
-      url:"https://thesunnyshams.github.io/black-hole-census/",
+      url:"/blackhole-census/",
       source:"https://github.com/thesunnyshams/black-hole-census",
       description:"Live uncertainty-first field guide"
     }
