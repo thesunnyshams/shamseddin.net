@@ -7,5 +7,13 @@
   "rewrites": [
     { "source": "/blackhole-census/", "destination": "https://thesunnyshams.github.io/black-hole-census/index.html" },
     { "source": "/blackhole-census/:path*", "destination": "https://thesunnyshams.github.io/black-hole-census/:path*" }
+  ],
+  "headers": [
+    {
+      "source": "/blackhole-census/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=60, must-revalidate" }
+      ]
+    }
   ]
 }
