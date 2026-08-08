@@ -215,3 +215,55 @@ section.record article.entry:last-of-type{border-bottom:1px solid var(--rule-def
 }
 .theme-option input:checked{background:var(--accent);border-color:var(--accent)}
 .theme-option input:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+
+/* An instrument's panel switch, not a marketing call to action.
+
+   The rest of this site links in running text, which suits a page you read
+   top to bottom. The Census is the one thing here you are meant to stop
+   reading and go operate, so it gets a control you can see from across the
+   page: a ruled rectangle, a mono label, and a tick that slides on approach.
+   The vocabulary is the same one the marks use, so it reads as part of the
+   instrument rather than as a button bolted onto it. */
+.launch{
+  display:inline-flex;align-items:center;gap:var(--space-4);
+  min-height:52px;margin-top:var(--space-6);
+  padding:var(--space-3) var(--space-4);
+  border:1px solid var(--rule-section);
+  background:transparent;color:var(--text-primary);
+  font-family:var(--font-mono);font-size:var(--size-label);
+  letter-spacing:var(--track-label);text-transform:uppercase;
+  text-decoration:none;
+  transition:
+    background-color var(--duration) var(--ease),
+    border-color var(--duration) var(--ease),
+    color var(--duration-fast) var(--ease);
+}
+.launch:hover,
+.launch:focus-visible{
+  background:var(--surface-panel);
+  border-color:var(--accent);
+  color:var(--text-primary);
+}
+.launch:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+/* The arrow is drawn rather than typed so it sits on the baseline of the
+   label at every size and inherits the link's own colour. */
+.launch-arrow{
+  display:block;width:26px;height:8px;overflow:visible;
+  color:var(--text-tertiary);
+  transition:color var(--duration-fast) var(--ease);
+}
+.launch:hover .launch-arrow,
+.launch:focus-visible .launch-arrow{color:var(--accent)}
+.launch-arrow line,.launch-arrow polyline{
+  fill:none;stroke:currentColor;stroke-width:1;
+  vector-effect:non-scaling-stroke;
+}
+.launch-arrow .launch-arrow-rule{
+  transition:transform var(--duration) var(--ease);
+  transform-origin:left center;
+}
+.launch:hover .launch-arrow .launch-arrow-rule{transform:scaleX(1.18)}
+@media (prefers-reduced-motion:reduce){
+  .launch-arrow .launch-arrow-rule{transition:none}
+  .launch:hover .launch-arrow .launch-arrow-rule{transform:none}
+}
