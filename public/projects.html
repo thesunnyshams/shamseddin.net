@@ -7,7 +7,7 @@
 <meta name="description" content="View Bowcast and Black Hole Census without leaving shamseddin.net.">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="assets/interval-mark.svg" type="image/svg+xml">
-<script>try{var t=localStorage.getItem("theme");if(t&&t!=="system")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script>try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <meta property="og:title" content="Projects · Shamseddin Alsheikh">
 <meta property="og:description" content="Live, interactive views of Bowcast and Black Hole Census.">
 <meta property="og:url" content="https://shamseddin.net/projects.html">
@@ -106,9 +106,8 @@
     <p class="footer-stamp">Updated <time datetime="2026-08">August 2026</time></p>
     <fieldset class="theme-toggle" id="theme-toggle">
       <legend>Theme</legend>
-      <label class="theme-option"><input type="radio" name="theme" value="system">System</label>
+      <label class="theme-option theme-option--on"><input type="radio" name="theme" value="dark" checked>Dark</label>
       <label class="theme-option"><input type="radio" name="theme" value="light">Light</label>
-      <label class="theme-option"><input type="radio" name="theme" value="dark">Dark</label>
     </fieldset>
     <script src="theme.js"></script>
     <script src="project-viewer.js"></script>

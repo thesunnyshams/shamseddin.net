@@ -7,12 +7,12 @@ JavaScript, with no build step or dependencies.
 
 ```
 public/
-  index.html    home page, including projects, education, experience and leadership
+  index.html    home page, including analysis, projects, education, experience and leadership
   projects.html bounded live viewer for Bowcast and Black Hole Census
   sessions.html recordings: the Global Affairs presentation and Global Lunches
   about.html    biography and working principles
   style.css     Interval design-system entry point
-  theme.js      three-state system/light/dark theme control
+  theme.js      dark/light theme control, dark by default whatever the system says
   reading.js    live Bowcast reading with an honest no-data fallback
   motion.js     GSAP scroll reveals and the margin reticle, both with fallbacks
   sessions.js   click-to-load players, one at a time, unloaded on close
@@ -53,8 +53,8 @@ There are currently no visible placeholder chips. Confirm that remains true with
 rg -n 'class="todo"' public
 ```
 
-The IA fair's uncounted attendance and the climate plan's unpublished figures remain honest
-unquantified states. The Bowcast reading retains its pre-rendered no-data state when the endpoint
+The climate plan's unpublished figures remain an honest unquantified state. The Race Rocks entry is
+a summary by the owner's choice: the delivered report is not published. The Bowcast reading retains its pre-rendered no-data state when the endpoint
 fails, times out, or returns invalid data.
 
 ## Conventions

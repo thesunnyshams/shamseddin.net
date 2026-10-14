@@ -1,5 +1,6 @@
-/* Three-state theme control. Dark is the default, prefers-color-scheme is
-   respected until the reader chooses otherwise, and the choice persists.
+/* Two-state theme control. Dark is the default regardless of the system
+   preference; light only applies once the reader picks it, and the choice
+   persists. A stored "system" from the old three-state control reads as dark.
    The page is complete without this file: it only wires the footer control. */
 (function () {
   var set = document.getElementById("theme-toggle");
@@ -14,11 +15,11 @@
       inputs[i].parentNode.classList.toggle("theme-option--on", on);
     }
   }
-  paint(stored || "system");
+  paint(stored === "light" ? "light" : "dark");
   set.addEventListener("change", function (e) {
     var value = e.target.value;
-    if (value === "system") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme", value);
+    if (value === "light") document.documentElement.setAttribute("data-theme", "light");
+    else document.documentElement.removeAttribute("data-theme");
     try { localStorage.setItem("theme", value); } catch (err) {}
     paint(value);
   });

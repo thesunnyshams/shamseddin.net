@@ -4,7 +4,8 @@
    encoding never depends on colour alone. Absence (--unknown) is deliberately
    the same value as --text-tertiary: absence should look like absence, not like
    a fourth category.
-   Dark is the default. Light is cool neutral, explicitly not Bowcast's warm
+   Dark is the default whatever the system preference; light only appears when
+   the reader picks it. Light is cool neutral, explicitly not Bowcast's warm
    paper, so the two sites read as different objects by the same person. */
 
 :root{
@@ -54,30 +55,7 @@
   --mark-absent:var(--unknown);
 }
 
-@media (prefers-color-scheme:light){
-  :root{
-    color-scheme:light;
-    --surface-0:#F6F7F9;
-    --surface-1:#FFFFFF;
-    --surface-2:#EDEFF3;
-    --hairline:#DCE0E6;
-    --hairline-strong:#B4BCC6;
-    --text-primary:#10141A;
-    --text-secondary:#454E5A;
-    --text-tertiary:#5F6874;
-    --measured:#0F6F62;
-    --derived:#7A5206;
-    --modeled:#4A3CA8;
-    --unknown:#5F6874;
-    --crimson:#A8102F;
-    --accent-hover:#8A0C26;
-    --todo-bg:#FDF3D0;
-    --todo-text:#4A3803;
-    --todo-border:#D9BC5B;
-  }
-}
-
-/* Explicit choice, set by the footer toggle, wins over the system preference. */
+/* Explicit choice, set by the footer toggle. */
 
 :root[data-theme="light"]{
   color-scheme:light;
